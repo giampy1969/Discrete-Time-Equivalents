@@ -1,0 +1,36 @@
+<productinfo>
+
+<matlabrelease>12.1</matlabrelease>
+<name>Digital Equivalents Library</name>
+<type>blockset</type>
+<icon>$toolbox/simulink/simulink/simulinkicon.gif</icon>
+
+<list>
+
+<listitem>
+<label>Help</label>
+<callback>doc dequiv/</callback>
+<icon>$toolbox/matlab/icons/book_sim.gif</icon>
+</listitem>
+
+<listitem>
+<label>Launch Dequiv Library</label>
+<callback>dequiv</callback>
+<icon>$toolbox/simulink/simulink/simulinkicon.gif</icon>
+</listitem>
+
+<listitem>
+<label>Example 1</label>
+<callback>digflt</callback>
+<icon>$toolbox/matlab/icons/demoicon.gif</icon>
+</listitem>
+
+<listitem>
+<label>Example 2</label>
+<callback>multifil</callback>
+<icon>$toolbox/matlab/icons/demoicon.gif</icon>
+</listitem>
+
+</list>
+
+</productinfo>

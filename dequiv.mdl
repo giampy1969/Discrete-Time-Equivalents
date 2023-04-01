@@ -1,0 +1,1077 @@
+Library {
+  Name			  "Dequiv"
+  Version		  3.00
+  BlockDataTips		  off
+  BlockParametersDataTip  off
+  BlockAttributesDataTip  off
+  BlockPortWidthsDataTip  off
+  BlockDescriptionStringDataTip	off
+  BlockMaskParametersDataTip off
+  ToolBar		  off
+  StatusBar		  off
+  BrowserShowLibraryLinks off
+  BrowserLookUnderMasks	  off
+  Created		  "Tue Nov 20 12:33:33 2001"
+  UpdateHistory		  "UpdateHistoryNever"
+  ModifiedByFormat	  "%<Auto>"
+  LastModifiedBy	  "campa"
+  ModifiedDateFormat	  "%<Auto>"
+  LastModifiedDate	  "Mon Apr 01 14:23:43 2002"
+  ModelVersionFormat	  "1.%<AutoIncrement:30>"
+  ConfigurationManager	  "none"
+  BlockDefaults {
+    Orientation		    "right"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    NamePlacement	    "normal"
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    ShowName		    on
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    "center"
+    VerticalAlignment	    "middle"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  System {
+    Name		    "Dequiv"
+    Location		    [112, 89, 438, 519]
+    Open		    on
+    ModelBrowserVisibility  off
+    ModelBrowserWidth	    200
+    ScreenColor		    "automatic"
+    PaperOrientation	    "landscape"
+    PaperPositionMode	    "auto"
+    PaperType		    "usletter"
+    PaperUnits		    "inches"
+    ZoomFactor		    "100"
+    AutoZoom		    on
+    ReportName		    "simulink-default.rpt"
+    Block {
+      BlockType		      SubSystem
+      Name		      "1/z Chain"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [220, 300, 255, 320]
+      ShowName		      off
+      ShowPortLabels	      on
+      MaskType		      "Discrete Time FIFO Chain"
+      MaskDescription	      "   Discrete Time FIFO Chain"
+      MaskHelp		      "   Discrete Time FIFO Chain"
+      MaskPromptString	      "Number of Channels|Number of Delays for each Ch"
+"annel|Initial Conditon|Sample Time"
+      MaskStyleString	      "edit,edit,edit,edit"
+      MaskTunableValueString  "on,on,on,on"
+      MaskCallbackString      "|||"
+      MaskEnableString	      "on,on,on,on"
+      MaskVisibilityString    "on,on,on,on"
+      MaskVariables	      "ni=@1;rd=@2;x0=@3;T=@4;"
+      MaskInitialization      "a=[];b=[];c=[];d=[];\nfor i=1:ni,\na=[a,zeros(s"
+"ize(a,1),rd);zeros(rd,size(a,2)),diag(ones(rd-1,1),1)];\nb=[b,zeros(size(b,1)"
+",1);zeros(rd,size(b,2)),[zeros(rd-1,1);1]];\nc=[c,zeros(size(c,1),rd);zeros(1"
+",size(c,2)),[1 zeros(1,rd-1)]];\nd=[d,zeros(size(d,1),1);zeros(1,size(d,2)),0"
+"];\nend\n"
+      MaskDisplay	      "disp('FIFO')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      MaskValueString	      "1|4|0|0.025"
+      System {
+	Name			"1/z Chain"
+	Location		[330, 163, 746, 270]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"automatic"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	ZoomFactor		"100"
+	AutoZoom		on
+	Block {
+	  BlockType		  Inport
+	  Name			  "In"
+	  Position		  [80, 43, 110, 57]
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	  DataType		  "auto"
+	  SignalType		  "auto"
+	  Interpolate		  on
+	}
+	Block {
+	  BlockType		  DiscreteStateSpace
+	  Name			  "Discrete State-Space"
+	  Position		  [135, 32, 255, 68]
+	  A			  "a"
+	  B			  "b"
+	  C			  "c"
+	  D			  "d"
+	  X0			  "x0"
+	  SampleTime		  "T"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out"
+	  Position		  [275, 43, 305, 57]
+	  Port			  "1"
+	  OutputWhenDisabled	  "held"
+	  InitialOutput		  "[]"
+	}
+	Line {
+	  SrcBlock		  "Discrete State-Space"
+	  SrcPort		  1
+	  DstBlock		  "Out"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "In"
+	  SrcPort		  1
+	  DstBlock		  "Discrete State-Space"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Delay Chain"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [125, 297, 185, 333]
+      ShowPortLabels	      on
+      MaskType		      "Delay Chain"
+      MaskDescription	      "  Implements a delay chain,\n  each input is de"
+"layed n times and the respective\n  outputs are all the states as well as the"
+" input itself."
+      MaskHelp		      "<p>\nThis block implements a MIMO Delay chain."
+"\n</p>\n<p>\n  The initial condition is for the whole system.\n   If the inpu"
+"t is an m-channel vector u, being u0 at time zero,\n   and n is the number of"
+" delays, then a suitable initial condition is :\n   x0=ones(n,1)*reshape(u0,1"
+",m)\n</p>\n"
+      MaskPromptString	      "Number of Channels|Number of Delays|Initial Con"
+"dition|Sample Time"
+      MaskStyleString	      "edit,edit,edit,edit"
+      MaskTunableValueString  "on,on,on,on"
+      MaskCallbackString      "|||"
+      MaskEnableString	      "on,on,on,on"
+      MaskVisibilityString    "on,on,on,on"
+      MaskVariables	      "ni=@1;rd=@2;x0=@3;T=@4;"
+      MaskInitialization      "a=[];b=[];c=[];d=[];\nfor i=1:ni,\na=[a,zeros(s"
+"ize(a,1),rd);zeros(rd,size(a,2)),diag(ones(rd-1,1),1)];\nb=[b,zeros(size(b,1)"
+",1);zeros(rd,size(b,2)),[zeros(rd-1,1);1]];\nc=[c,zeros(size(c,1),rd);zeros(r"
+"d+1,size(c,2)),[eye(rd);zeros(1,rd)]];\nd=[d,zeros(size(d,1),1);zeros(rd+1,si"
+"ze(d,2)),[zeros(rd,1);1]];\nend\n"
+      MaskDisplay	      "dpoly('1','z^n','')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      MaskValueString	      "1|3|2e-7/4|0.025"
+      System {
+	Name			"Delay Chain"
+	Location		[338, 155, 754, 262]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"automatic"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	ZoomFactor		"100"
+	AutoZoom		on
+	Block {
+	  BlockType		  Inport
+	  Name			  "In"
+	  Position		  [80, 43, 110, 57]
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	  DataType		  "auto"
+	  SignalType		  "auto"
+	  Interpolate		  on
+	}
+	Block {
+	  BlockType		  DiscreteStateSpace
+	  Name			  "Discrete State-Space"
+	  Position		  [135, 32, 255, 68]
+	  A			  "a"
+	  B			  "b"
+	  C			  "c"
+	  D			  "d"
+	  X0			  "x0"
+	  SampleTime		  "T"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out"
+	  Position		  [275, 43, 305, 57]
+	  Port			  "1"
+	  OutputWhenDisabled	  "held"
+	  InitialOutput		  "[]"
+	}
+	Line {
+	  SrcBlock		  "Discrete State-Space"
+	  SrcPort		  1
+	  DstBlock		  "Out"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "In"
+	  SrcPort		  1
+	  DstBlock		  "Discrete State-Space"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Dequiv Demo 1"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [20, 378, 82, 408]
+      ForegroundColor	      "darkGreen"
+      DropShadow	      on
+      ShowName		      off
+      OpenFcn		      "digflt"
+      ShowPortLabels	      on
+      MaskDisplay	      "disp('Example 1')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      System {
+	Name			"Dequiv Demo 1"
+	Location		[245, 152, 497, 281]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	ZoomFactor		"100"
+	AutoZoom		on
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Dequiv Demo 2"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [125, 378, 187, 408]
+      ForegroundColor	      "darkGreen"
+      DropShadow	      on
+      ShowName		      off
+      OpenFcn		      "multifil;"
+      ShowPortLabels	      on
+      MaskDisplay	      "disp('Example 2')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      System {
+	Name			"Dequiv Demo 2"
+	Location		[245, 152, 497, 281]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	ZoomFactor		"100"
+	AutoZoom		on
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "IIR1"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [20, 42, 75, 78]
+      ShowPortLabels	      on
+      MaskType		      "Discrete Time First Order IIR"
+      MaskDescription	      "  Each channel has the transfer function \n  (1"
+"-exp(-aT))/(1-exp(-aT)(z^-1)) which is a good\n  (pz-matched) approximation o"
+"f a/(s+a) if 10*a*T<pi"
+      MaskHelp		      "<p>\n  Each channel has the transfer function "
+"\n  (1-exp(-aT))/(1-exp(-aT)(z^-1)) which is a good\n  (pz-matched) approxima"
+"tion of a/(s+a) if 10*a*T<pi\n</p>\n"
+      MaskPromptString	      "Number of Channels|Cutoff Frequency (a)|Initial"
+" Condition|Sample Time"
+      MaskStyleString	      "edit,edit,edit,edit"
+      MaskTunableValueString  "on,on,on,on"
+      MaskCallbackString      "|||"
+      MaskEnableString	      "on,on,on,on"
+      MaskVisibilityString    "on,on,on,on"
+      MaskVariables	      "ni=@1;a=@2;x0=@3;T=@4;"
+      MaskInitialization      "A=[];B=[];C=[];D=[];\nfor i=1:ni,\nA=[A,zeros(s"
+"ize(A,1),1);zeros(1,size(A,2)),exp(-a*T)];\nB=[B,zeros(size(B,1),1);zeros(1,s"
+"ize(B,2)),1-exp(-a*T)];\nC=[C,zeros(size(C,1),1);zeros(1,size(C,2)),exp(-a*T)"
+"];\nD=[D,zeros(size(D,1),1);zeros(1,size(D,2)),1-exp(-a*T)];\nend"
+      MaskDisplay	      "dpoly(a,[1 a],'s')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      MaskValueString	      "1|0.1|0|0.025"
+      System {
+	Name			"IIR1"
+	Location		[350, 143, 766, 250]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"automatic"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	ZoomFactor		"100"
+	AutoZoom		on
+	Block {
+	  BlockType		  Inport
+	  Name			  "In"
+	  Position		  [80, 43, 110, 57]
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	  DataType		  "auto"
+	  SignalType		  "auto"
+	  Interpolate		  on
+	}
+	Block {
+	  BlockType		  DiscreteStateSpace
+	  Name			  "Discrete State-Space"
+	  Position		  [135, 32, 255, 68]
+	  A			  "A"
+	  B			  "B"
+	  C			  "C"
+	  D			  "D"
+	  X0			  "x0"
+	  SampleTime		  "T"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out"
+	  Position		  [275, 43, 305, 57]
+	  Port			  "1"
+	  OutputWhenDisabled	  "held"
+	  InitialOutput		  "[]"
+	}
+	Line {
+	  SrcBlock		  "In"
+	  SrcPort		  1
+	  DstBlock		  "Discrete State-Space"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Discrete State-Space"
+	  SrcPort		  1
+	  DstBlock		  "Out"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "IIR2"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [125, 42, 180, 78]
+      ShowPortLabels	      on
+      MaskType		      "Discrete Time Second Order IIR"
+      MaskDescription	      "  Each channel has the transfer function :\n  1"
+"-2*cos(sqrt(1-x^2)*m*T)*exp(-x*m*T)+exp(-2*x*m*T) /\n  1-2*cos(sqrt(1-x^2)*m*"
+"T)*exp(-x*m*T)z^-1+exp(-2*x*m*T)z^-2\n  which is a good (pz-matched) approxim"
+"ation of \n  m^2/(s^2+2xms+m^2) if 10*m*T<pi\n  The initial condition is in d"
+"iscrete time for the whole system."
+      MaskHelp		      "<p>\n  Each channel has the transfer function :"
+"\n  1-2*cos(sqrt(1-x^2)*m*T)*exp(-x*m*T)+exp(-2*x*m*T) /\n  1-2*cos(sqrt(1-x^"
+"2)*m*T)*exp(-x*m*T)z^-1+exp(-2*x*m*T)z^-2\n  which is a good (pz-matched) app"
+"roximation of \n  m^2/(s^2+2xms+m^2) if 10*m*T<pi\n</p>\n<p>\n  The initial c"
+"ondition is in discrete time for the whole system.\n   If the input is an m-c"
+"hannel vector u, being u0 at time zero,\n   then a suitable initial condition"
+" is : x0=ones(2,1)*reshape(u0,1,m)\n</p>\n"
+      MaskPromptString	      "Number of Channels|Poles Magnitude (m)|Poles Da"
+"mping (x)|Initial Condition|Sample Time"
+      MaskStyleString	      "edit,edit,edit,edit,edit"
+      MaskTunableValueString  "on,on,on,on,on"
+      MaskCallbackString      "||||"
+      MaskEnableString	      "on,on,on,on,on"
+      MaskVisibilityString    "on,on,on,on,on"
+      MaskVariables	      "ni=@1;w=@2;x=@3;x0=@4;T=@5;"
+      MaskInitialization      "A=[];B=[];C=[];D=[];\nfor i=1:ni,\nA=[A,zeros(s"
+"ize(A,1),2);zeros(2,size(A,2)),[0 1; -exp(-2*x*w*T) 2*cos(sqrt(1-x^2)*w*T)*ex"
+"p(-x*w*T)]];\nB=[B,zeros(size(B,1),1);zeros(2,size(B,2)),[0;1+exp(-2*x*w*T)-2"
+"*cos(sqrt(1-x^2)*w*T)*exp(-x*w*T)]];\nC=[C,zeros(size(C,1),2);zeros(1,size(C,"
+"2)),[-exp(-2*x*w*T)  2*cos(sqrt(1-x^2)*w*T)*exp(-x*w*T)]];\nD=[D,zeros(size(D"
+",1),1);zeros(1,size(D,2)),1+exp(-2*x*w*T)-2*cos(sqrt(1-x^2)*w*T)*exp(-x*w*T)]"
+";\nend"
+      MaskDisplay	      "dpoly(w^2, [1 2*x*w w^2],'s')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      MaskValueString	      "1|3|0.5|0|0.025"
+      System {
+	Name			"IIR2"
+	Location		[350, 143, 766, 250]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"automatic"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	ZoomFactor		"100"
+	AutoZoom		on
+	Block {
+	  BlockType		  Inport
+	  Name			  "In"
+	  Position		  [80, 43, 110, 57]
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	  DataType		  "auto"
+	  SignalType		  "auto"
+	  Interpolate		  on
+	}
+	Block {
+	  BlockType		  DiscreteStateSpace
+	  Name			  "Discrete State-Space"
+	  Position		  [135, 32, 255, 68]
+	  A			  "A"
+	  B			  "B"
+	  C			  "C"
+	  D			  "D"
+	  X0			  "x0"
+	  SampleTime		  "T"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out"
+	  Position		  [275, 43, 305, 57]
+	  Port			  "1"
+	  OutputWhenDisabled	  "held"
+	  InitialOutput		  "[]"
+	}
+	Line {
+	  SrcBlock		  "Discrete State-Space"
+	  SrcPort		  1
+	  DstBlock		  "Out"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "In"
+	  SrcPort		  1
+	  DstBlock		  "Discrete State-Space"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "MA FIR"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [20, 297, 80, 333]
+      ShowPortLabels	      on
+      MaskType		      "Discrete Time Moving Average FIR"
+      MaskDescription	      "  Discrete Time Moving Average FIR"
+      MaskHelp		      "<p>\nThis block implements a MIMO Discrete Time"
+" Moving Average FIR.\n</p>\n<p>\n  The initial condition is or the whole syst"
+"em.\n   If the input is an m-channel vector u, being u0 at time zero,\n   and"
+" ord is the maximum power of z, (ord=length(num)-1)\n   then a suitable initi"
+"al condition is : x0=ones(ord,1)*reshape(u0,1,m)\n</p>\n"
+      MaskPromptString	      "Number of Channels|Window Size|Initial Conditio"
+"n|Sample Time"
+      MaskStyleString	      "edit,edit,edit,edit"
+      MaskTunableValueString  "on,on,on,on"
+      MaskCallbackString      "|||"
+      MaskEnableString	      "on,on,on,on"
+      MaskVisibilityString    "on,on,on,on"
+      MaskVariables	      "ni=@1;ws=@2;x0=@3;T=@4;"
+      MaskInitialization      "a=[];b=[];c=[];d=[];rd=ws-1;\nfor i=1:ni,\na=[a"
+",zeros(size(a,1),rd);zeros(rd,size(a,2)),diag(ones(rd-1,1),1)];\nb=[b,zeros(s"
+"ize(b,1),1);zeros(rd,size(b,2)),[zeros(rd-1,1);1]];\nc=[c,zeros(size(c,1),rd)"
+";zeros(1,size(c,2)),[ones(1,rd)/(rd+1)]];\nd=[d,zeros(size(d,1),1);zeros(1,si"
+"ze(d,2)),1/(rd+1)];\nend"
+      MaskDisplay	      "dpoly('1+z+z^2+..','z^n','')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      MaskValueString	      "1|50|2e-7/4|0.025"
+      System {
+	Name			"MA FIR"
+	Location		[340, 153, 756, 260]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"automatic"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	ZoomFactor		"100"
+	AutoZoom		on
+	Block {
+	  BlockType		  Inport
+	  Name			  "In"
+	  Position		  [80, 43, 110, 57]
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	  DataType		  "auto"
+	  SignalType		  "auto"
+	  Interpolate		  on
+	}
+	Block {
+	  BlockType		  DiscreteStateSpace
+	  Name			  "Discrete State-Space"
+	  Position		  [135, 32, 255, 68]
+	  A			  "a"
+	  B			  "b"
+	  C			  "c"
+	  D			  "d"
+	  X0			  "x0"
+	  SampleTime		  "T"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out"
+	  Position		  [275, 43, 305, 57]
+	  Port			  "1"
+	  OutputWhenDisabled	  "held"
+	  InitialOutput		  "[]"
+	}
+	Line {
+	  SrcBlock		  "In"
+	  SrcPort		  1
+	  DstBlock		  "Discrete State-Space"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Discrete State-Space"
+	  SrcPort		  1
+	  DstBlock		  "Out"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "MDSP"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [20, 137, 75, 173]
+      ShowPortLabels	      on
+      MaskType		      "Generic Multichannel Digital Filter (DSP Conven"
+"tion)"
+      MaskDescription	      "  Each channel has the transfer function num/de"
+"n \n  where num and den contains coefficients of z^-1\n  in ascending order ("
+"DSP convention).\n  See also the file tf.m for more info about the DSP conven"
+"tion.\n  The initial state is set for the whole system as the steady state \n"
+"  value corresponding to the given input. "
+      MaskHelp		      "<p>\n  Each channel has the transfer function n"
+"um/den \n  where num and den contains coefficients of z^-1\n  in ascending or"
+"der (DSP convention).\n  See also the file tf.m for more info about the DSP c"
+"onvention.\n</p>\n<p>\n  The initial state is set for the whole system as the"
+" steady state \n  value corresponding to the given input. That is x0=inv(I-A)"
+"*B*u0\n  where A,B,u0 are representative of the whole system. \n</p>"
+      MaskPromptString	      "Number of Channels|num (ascending powers of z^-"
+"1)|den (ascending powers of z^-1)|Initial input (for the whole system)|Sample"
+" Time"
+      MaskStyleString	      "edit,edit,edit,edit,edit"
+      MaskTunableValueString  "on,on,on,on,on"
+      MaskCallbackString      "||||"
+      MaskEnableString	      "on,on,on,on,on"
+      MaskVisibilityString    "on,on,on,on,on"
+      MaskVariables	      "ni=@1;num=@2;den=@3;u0=@4;T=@5;"
+      MaskInitialization      "[a,b,c,d]=ssdata(ss(tf(num,den,T,'Variable','z^"
+"-1')));\nA=[];B=[];C=[];D=[];\nfor i=1:ni,\nA=[A,zeros(size(A,1),size(a,2));z"
+"eros(size(a,1),size(A,2)),a];\nB=[B,zeros(size(B,1),size(b,2));zeros(size(b,1"
+"),size(B,2)),b];\nC=[C,zeros(size(C,1),size(c,2));zeros(size(c,1),size(C,2)),"
+"c];\nD=[D,zeros(size(D,1),size(d,2));zeros(size(d,1),size(D,2)),d];\nend\nif "
+"max(size(u0))==1, u0=ones(size(B,2),1)*u0; end\nx0=pinv(eye(size(A))-A)*B*u0;"
+      MaskDisplay	      "dpoly(num,den,'z-1')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      MaskValueString	      "1|[1 0]|[1 0.5]|0|0.025"
+      System {
+	Name			"MDSP"
+	Location		[356, 145, 772, 252]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"automatic"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	ZoomFactor		"100"
+	AutoZoom		on
+	Block {
+	  BlockType		  Inport
+	  Name			  "In"
+	  Position		  [80, 43, 110, 57]
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	  DataType		  "auto"
+	  SignalType		  "auto"
+	  Interpolate		  on
+	}
+	Block {
+	  BlockType		  DiscreteStateSpace
+	  Name			  "Discrete State-Space"
+	  Position		  [135, 32, 255, 68]
+	  A			  "A"
+	  B			  "B"
+	  C			  "C"
+	  D			  "D"
+	  X0			  "x0"
+	  SampleTime		  "T"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out"
+	  Position		  [275, 43, 305, 57]
+	  Port			  "1"
+	  OutputWhenDisabled	  "held"
+	  InitialOutput		  "[]"
+	}
+	Line {
+	  SrcBlock		  "In"
+	  SrcPort		  1
+	  DstBlock		  "Discrete State-Space"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Discrete State-Space"
+	  SrcPort		  1
+	  DstBlock		  "Out"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "MSS"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [125, 202, 180, 238]
+      ShowPortLabels	      on
+      MaskType		      "Multichannel Discrete State Space"
+      MaskDescription	      "  The resulting system is the diagonal composit"
+"ion of n blocks.\n  Each block consists in the MIMO discrete time state space"
+" \n  system A,B,C,D.\n  The initial state is set for the whole system as the "
+"steady state \n  value corresponding to the given input."
+      MaskHelp		      "<p>\n  The resulting system is the diagonal com"
+"position of n blocks.\n  Each block consists in the MIMO discrete time state "
+"space \n  system A,B,C,D.\n</p>\n<p>\n  The initial state is set for the whol"
+"e system as the steady state \n  value corresponding to the given input. That"
+" is x0=inv(I-A)*B*u0\n  where A,B,u0 are representative of the whole system. "
+"\n</p>"
+      MaskPromptString	      "Number of Blocks|A|B|C|D|Initial input (for the"
+" whole system)|Sample Time"
+      MaskStyleString	      "edit,edit,edit,edit,edit,edit,edit"
+      MaskTunableValueString  "on,on,on,on,on,on,on"
+      MaskCallbackString      "||||||"
+      MaskEnableString	      "on,on,on,on,on,on,on"
+      MaskVisibilityString    "on,on,on,on,on,on,on"
+      MaskVariables	      "n=@1;a=@2;b=@3;c=@4;d=@5;u0=@6;T=@7;"
+      MaskInitialization      "A=[];B=[];C=[];D=[];\nfor i=1:n,\nA=[A,zeros(si"
+"ze(A,1),size(a,2));zeros(size(a,1),size(A,2)),a];\nB=[B,zeros(size(B,1),size("
+"b,2));zeros(size(b,1),size(B,2)),b];\nC=[C,zeros(size(C,1),size(c,2));zeros(s"
+"ize(c,1),size(C,2)),c];\nD=[D,zeros(size(D,1),size(d,2));zeros(size(d,1),size"
+"(D,2)),d];\nend\nif max(size(u0))==1, u0=ones(size(B,2),1)*u0; end\nx0=pinv(e"
+"ye(size(A))-A)*B*u0;"
+      MaskDisplay	      "fprintf('x+ = Ax + Bu\\n  y = Cx + Du');"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      MaskValueString	      "1|[0 1;-3^2 -2*3*0.74]|[0;3^2]|[1 0]|0|0|0.025"
+      System {
+	Name			"MSS"
+	Location		[352, 141, 768, 248]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"automatic"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	ZoomFactor		"100"
+	AutoZoom		on
+	Block {
+	  BlockType		  Inport
+	  Name			  "In"
+	  Position		  [80, 43, 110, 57]
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	  DataType		  "auto"
+	  SignalType		  "auto"
+	  Interpolate		  on
+	}
+	Block {
+	  BlockType		  DiscreteStateSpace
+	  Name			  "Discrete State-Space"
+	  Position		  [135, 32, 255, 68]
+	  A			  "A"
+	  B			  "B"
+	  C			  "C"
+	  D			  "D"
+	  X0			  "x0"
+	  SampleTime		  "T"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out"
+	  Position		  [275, 43, 305, 57]
+	  Port			  "1"
+	  OutputWhenDisabled	  "held"
+	  InitialOutput		  "[]"
+	}
+	Line {
+	  SrcBlock		  "Discrete State-Space"
+	  SrcPort		  1
+	  DstBlock		  "Out"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "In"
+	  SrcPort		  1
+	  DstBlock		  "Discrete State-Space"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "MTF"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [125, 137, 180, 173]
+      ShowPortLabels	      on
+      MaskType		      "Generic Multichannel Transfer Function"
+      MaskDescription	      "  Each channel has the transfer function num/de"
+"n \n  where num and den contains coefficients of z\n  in descending order (TF"
+" convention).\n  See also the file tf.m for more info about the TF convention"
+".\n  The initial state is set for the whole system as the steady state \n  va"
+"lue corresponding to the given input."
+      MaskHelp		      "<p>\n  Each channel has the transfer function n"
+"um/den \n  where num and den contains coefficients of z\n  in ascending order"
+" (TF convention).\n  See also the file tf.m for more info about the DSP conve"
+"ntion.\n</p>\n<p>\n  The initial state is set for the whole system as the ste"
+"ady state \n  value corresponding to the given input. That is x0=inv(I-A)*B*u"
+"0\n  where A,B,u0 are representative of the whole system. \n</p>"
+      MaskPromptString	      "Number of Channels|num (descending powers of z)"
+"|den (descending powers of z)|Initial input|Sample Time"
+      MaskStyleString	      "edit,edit,edit,edit,edit"
+      MaskTunableValueString  "on,on,on,on,on"
+      MaskCallbackString      "||||"
+      MaskEnableString	      "on,on,on,on,on"
+      MaskVisibilityString    "on,on,on,on,on"
+      MaskVariables	      "ni=@1;num=@2;den=@3;u0=@4;T=@5;"
+      MaskInitialization      "[a,b,c,d]=ssdata(ss(tf(num,den,T)));\nA=[];B=[]"
+";C=[];D=[];\nfor i=1:ni,\nA=[A,zeros(size(A,1),size(a,2));zeros(size(a,1),siz"
+"e(A,2)),a];\nB=[B,zeros(size(B,1),size(b,2));zeros(size(b,1),size(B,2)),b];\n"
+"C=[C,zeros(size(C,1),size(c,2));zeros(size(c,1),size(C,2)),c];\nD=[D,zeros(si"
+"ze(D,1),size(d,2));zeros(size(d,1),size(D,2)),d];\nend\nif max(size(u0))==1, "
+"u0=ones(size(B,2),1)*u0; end\nx0=pinv(eye(size(A))-A)*B*u0;"
+      MaskDisplay	      "dpoly(num,den,'z')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      MaskValueString	      "1|[1 0]|[1 0.5]|0|0.025"
+      System {
+	Name			"MTF"
+	Location		[358, 147, 774, 254]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"automatic"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	ZoomFactor		"100"
+	AutoZoom		on
+	Block {
+	  BlockType		  Inport
+	  Name			  "In"
+	  Position		  [80, 43, 110, 57]
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	  DataType		  "auto"
+	  SignalType		  "auto"
+	  Interpolate		  on
+	}
+	Block {
+	  BlockType		  DiscreteStateSpace
+	  Name			  "Discrete State-Space"
+	  Position		  [135, 32, 255, 68]
+	  A			  "A"
+	  B			  "B"
+	  C			  "C"
+	  D			  "D"
+	  X0			  "x0"
+	  SampleTime		  "T"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out"
+	  Position		  [275, 43, 305, 57]
+	  Port			  "1"
+	  OutputWhenDisabled	  "held"
+	  InitialOutput		  "[]"
+	}
+	Line {
+	  SrcBlock		  "Discrete State-Space"
+	  SrcPort		  1
+	  DstBlock		  "Out"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "In"
+	  SrcPort		  1
+	  DstBlock		  "Discrete State-Space"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "MZP"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [20, 202, 75, 238]
+      ShowPortLabels	      on
+      MaskType		      "Generic Multichannel Zero-Pole"
+      MaskDescription	      "  Each channel has the transfer function num/de"
+"n \n  where num and den are calculated from the zeros, \n  poles and gain ent"
+"ered in the mask.\n  See also the file zpk.m for more info about the ZPK conv"
+"ention.\n  The initial state is set for the whole system as the steady state "
+"\n  value corresponding to the given input."
+      MaskHelp		      "<p>\n  Each channel has the transfer function n"
+"um/den \n  where num and den are calculated from the zeros, \n  poles and gai"
+"n entered in the mask.\n  See also the file zpk.m for more info about the ZPK"
+" convention.\n</p>\n<p>\n  The initial state is set for the whole system as t"
+"he steady state \n  value corresponding to the given input. That is x0=inv(I-"
+"A)*B*u0\n  where A,B,u0 are representative of the whole system. \n</p>"
+      MaskPromptString	      "Number of Channels|zeros|poles|gain|Initial inp"
+"ut (for the whole system)|Sample Time"
+      MaskStyleString	      "edit,edit,edit,edit,edit,edit"
+      MaskTunableValueString  "on,on,on,on,on,on"
+      MaskCallbackString      "|||||"
+      MaskEnableString	      "on,on,on,on,on,on"
+      MaskVisibilityString    "on,on,on,on,on,on"
+      MaskVariables	      "ni=@1;Z=@2;P=@3;K=@4;u0=@5;T=@6;"
+      MaskInitialization      "[a,b,c,d]=ssdata(ss(zpk(Z,P,K,T)));\nA=[];B=[];"
+"C=[];D=[];\nfor i=1:ni,\nA=[A,zeros(size(A,1),size(a,2));zeros(size(a,1),size"
+"(A,2)),a];\nB=[B,zeros(size(B,1),size(b,2));zeros(size(b,1),size(B,2)),b];\nC"
+"=[C,zeros(size(C,1),size(c,2));zeros(size(c,1),size(C,2)),c];\nD=[D,zeros(siz"
+"e(D,1),size(d,2));zeros(size(d,1),size(D,2)),d];\nend\nif max(size(u0))==1, u"
+"0=ones(size(B,2),1)*u0; end\nx0=pinv(eye(size(A))-A)*B*u0;"
+      MaskDisplay	      "droots(Z,P,K,'z')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      MaskValueString	      "1|[1 0]|[1 0.5]|1|0|0.025"
+      System {
+	Name			"MZP"
+	Location		[358, 147, 774, 254]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"automatic"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	ZoomFactor		"100"
+	AutoZoom		on
+	Block {
+	  BlockType		  Inport
+	  Name			  "In"
+	  Position		  [80, 43, 110, 57]
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	  DataType		  "auto"
+	  SignalType		  "auto"
+	  Interpolate		  on
+	}
+	Block {
+	  BlockType		  DiscreteStateSpace
+	  Name			  "Discrete State-Space"
+	  Position		  [135, 32, 255, 68]
+	  A			  "A"
+	  B			  "B"
+	  C			  "C"
+	  D			  "D"
+	  X0			  "x0"
+	  SampleTime		  "T"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out"
+	  Position		  [275, 43, 305, 57]
+	  Port			  "1"
+	  OutputWhenDisabled	  "held"
+	  InitialOutput		  "[]"
+	}
+	Line {
+	  SrcBlock		  "In"
+	  SrcPort		  1
+	  DstBlock		  "Discrete State-Space"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Discrete State-Space"
+	  SrcPort		  1
+	  DstBlock		  "Out"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Tustin SS"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [220, 42, 275, 78]
+      ShowPortLabels	      on
+      MaskType		      "Tustin Approximation of Continuous State Space"
+      MaskDescription	      "  The resulting system is the diagonal composit"
+"ion of n blocks.\n  Each block consists in the discrete time Tustin approxima"
+"tion \n  of the MIMO continuous time state space system A,B,C,D.\n  The initi"
+"al condition is set for the whole system as the steady state \n  discrete-tim"
+"e value corresponding to the given input."
+      MaskHelp		      "<p>\n  The resulting system is the diagonal com"
+"position of n blocks.\n  Each block consists in the discrete time Tustin appr"
+"oximation \n  of the MIMO continuous time state space system A,B,C,D.\n</p>\n"
+"<p>\n  The initial state is set for the whole system as the steady state \n  "
+"value corresponding to the given input. That is x0=inv(I-A)*B*u0\n  where A,B"
+",u0 are representative of the whole system. \n</p>"
+      MaskPromptString	      "Number of Blocks|A|B|C|D|Prewarping (w<pi/T, w="
+"0 for bilinear approx)|Initial Input|Sample Time"
+      MaskStyleString	      "edit,edit,edit,edit,edit,edit,edit,edit"
+      MaskTunableValueString  "on,on,on,on,on,on,on,on"
+      MaskCallbackString      "|||||||"
+      MaskEnableString	      "on,on,on,on,on,on,on,on"
+      MaskVisibilityString    "on,on,on,on,on,on,on,on"
+      MaskVariables	      "n=@1;a=@2;b=@3;c=@4;d=@5;w=@6;u0=@7;T=@8;"
+      MaskInitialization      "if abs(w)<1e-15, h=T; else h=2/w*tan(w*T/2); en"
+"d\nI=eye(size(a));X=inv(I-a*h/2);\nA=[];B=[];C=[];D=[];\nfor i=1:n,\nA=[A,zer"
+"os(size(A,1),size(a,2));zeros(size(a,1),size(A,2)),X*(I+a*h/2)];\nB=[B,zeros("
+"size(B,1),size(b,2));zeros(size(b,1),size(B,2)),sqrt(h)*X*b];\nC=[C,zeros(siz"
+"e(C,1),size(c,2));zeros(size(c,1),size(C,2)),sqrt(h)*c*X];\nD=[D,zeros(size(D"
+",1),size(d,2));zeros(size(d,1),size(D,2)),d+c*X*b*h/2];\nend\nif max(size(u0)"
+")==1, u0=ones(size(B,2),1)*u0; end\nx0=pinv(eye(size(A))-A)*B*u0;"
+      MaskDisplay	      "disp('Tustin')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      MaskValueString	      "1|[0 1;-3^2 -2*3*0.74]|[0;3^2]|[1 0]|0|1|0|0.02"
+"5"
+      System {
+	Name			"Tustin SS"
+	Location		[352, 141, 768, 248]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"automatic"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	ZoomFactor		"100"
+	AutoZoom		on
+	Block {
+	  BlockType		  Inport
+	  Name			  "In"
+	  Position		  [80, 43, 110, 57]
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	  DataType		  "auto"
+	  SignalType		  "auto"
+	  Interpolate		  on
+	}
+	Block {
+	  BlockType		  DiscreteStateSpace
+	  Name			  "Discrete State-Space"
+	  Position		  [135, 32, 255, 68]
+	  A			  "A"
+	  B			  "B"
+	  C			  "C"
+	  D			  "D"
+	  X0			  "x0"
+	  SampleTime		  "T"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out"
+	  Position		  [275, 43, 305, 57]
+	  Port			  "1"
+	  OutputWhenDisabled	  "held"
+	  InitialOutput		  "[]"
+	}
+	Line {
+	  SrcBlock		  "In"
+	  SrcPort		  1
+	  DstBlock		  "Discrete State-Space"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Discrete State-Space"
+	  SrcPort		  1
+	  DstBlock		  "Out"
+	  DstPort		  1
+	}
+      }
+    }
+    Annotation {
+      Position		      [160, 24]
+      ForegroundColor	      "red"
+      Text		      "Discrete Multichannel Equivalents of Simple Ana"
+"log Filters "
+    }
+    Annotation {
+      Position		      [109, 278]
+      ForegroundColor	      "blue"
+      Text		      "Some Useful Multichannel FIR Filters "
+    }
+    Annotation {
+      Position		      [264, 395]
+      ForegroundColor	      "darkGreen"
+      Text		      "Dequiv Library       \nApril 2002             "
+"\nGiampiero Campa "
+    }
+    Annotation {
+      Position		      [104, 118]
+      ForegroundColor	      "blue"
+      Text		      "Generic Multichannel Digital Filters"
+    }
+  }
+}

@@ -1,0 +1,712 @@
+Model {
+  Name			  "Multifil"
+  Version		  3.00
+  SimParamPage		  "Solver"
+  SampleTimeColors	  off
+  InvariantConstants	  off
+  WideVectorLines	  off
+  ShowLineWidths	  on
+  ShowPortDataTypes	  off
+  StartTime		  "0.0"
+  StopTime		  "10.0"
+  SolverMode		  "Auto"
+  Solver		  "ode45"
+  RelTol		  "1e-3"
+  AbsTol		  "auto"
+  Refine		  "1"
+  MaxStep		  "auto"
+  InitialStep		  "auto"
+  FixedStep		  "auto"
+  MaxOrder		  5
+  OutputOption		  "RefineOutputTimes"
+  OutputTimes		  "[]"
+  LoadExternalInput	  off
+  ExternalInput		  "[t, u]"
+  SaveTime		  on
+  TimeSaveName		  "tout"
+  SaveState		  off
+  StateSaveName		  "xout"
+  SaveOutput		  on
+  OutputSaveName	  "yout"
+  LoadInitialState	  off
+  InitialState		  "xInitial"
+  SaveFinalState	  off
+  FinalStateName	  "xFinal"
+  SaveFormat		  "Matrix"
+  LimitMaxRows		  off
+  MaxRows		  "1000"
+  Decimation		  "1"
+  AlgebraicLoopMsg	  "warning"
+  MinStepSizeMsg	  "warning"
+  UnconnectedInputMsg	  "warning"
+  UnconnectedOutputMsg	  "warning"
+  UnconnectedLineMsg	  "warning"
+  InheritedTsInSrcMsg	  "warning"
+  IntegerOverflowMsg	  "warning"
+  UnnecessaryDatatypeConvMsg "none"
+  Int32ToFloatConvMsg	  "warning"
+  SignalLabelMismatchMsg  "none"
+  ConsistencyChecking	  "off"
+  ZeroCross		  on
+  SimulationMode	  "normal"
+  BlockDataTips		  on
+  BlockParametersDataTip  on
+  BlockAttributesDataTip  off
+  BlockPortWidthsDataTip  off
+  BlockDescriptionStringDataTip	off
+  BlockMaskParametersDataTip off
+  ToolBar		  on
+  StatusBar		  on
+  BrowserShowLibraryLinks off
+  BrowserLookUnderMasks	  off
+  OptimizeBlockIOStorage  on
+  BufferReuse		  on
+  BooleanDataType	  off
+  RTWSystemTargetFile	  "grt.tlc"
+  RTWInlineParameters	  off
+  RTWRetainRTWFile	  off
+  RTWTemplateMakefile	  "grt_default_tmf"
+  RTWMakeCommand	  "make_rtw"
+  RTWGenerateCodeOnly	  off
+  ExtModeMexFile	  "ext_comm"
+  ExtModeBatchMode	  off
+  ExtModeTrigType	  "manual"
+  ExtModeTrigMode	  "oneshot"
+  ExtModeTrigPort	  "1"
+  ExtModeTrigElement	  "any"
+  ExtModeTrigDuration	  1000
+  ExtModeTrigHoldOff	  0
+  ExtModeTrigDelay	  0
+  ExtModeTrigDirection	  "rising"
+  ExtModeTrigLevel	  0
+  ExtModeArchiveMode	  "off"
+  ExtModeAutoIncOneShot	  off
+  ExtModeIncDirWhenArm	  off
+  ExtModeAddSuffixToVar	  off
+  ExtModeWriteAllDataToWs off
+  ExtModeArmWhenConnect	  off
+  Created		  "Sat Feb 24 12:10:33 2001"
+  UpdateHistory		  "UpdateHistoryNever"
+  ModifiedByFormat	  "%<Auto>"
+  LastModifiedBy	  "campa"
+  ModifiedDateFormat	  "%<Auto>"
+  LastModifiedDate	  "Mon Apr 01 09:24:05 2002"
+  ModelVersionFormat	  "1.%<AutoIncrement:64>"
+  ConfigurationManager	  "none"
+  BlockDefaults {
+    Orientation		    "right"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    NamePlacement	    "normal"
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    ShowName		    on
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    "center"
+    VerticalAlignment	    "middle"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  System {
+    Name		    "Multifil"
+    Location		    [215, 104, 626, 743]
+    Open		    on
+    ModelBrowserVisibility  off
+    ModelBrowserWidth	    200
+    ScreenColor		    "automatic"
+    PaperOrientation	    "landscape"
+    PaperPositionMode	    "auto"
+    PaperType		    "usletter"
+    PaperUnits		    "inches"
+    ZoomFactor		    "100"
+    AutoZoom		    off
+    ReportName		    "simulink-default.rpt"
+    Block {
+      BlockType		      Reference
+      Name		      "Band-Limited\nWhite Noise"
+      Ports		      [0, 1, 0, 0, 0]
+      Position		      [30, 245, 60, 275]
+      SourceBlock	      "simulink3/Sources/Band-Limited\nWhite Noise"
+      SourceType	      "Continuous White Noise."
+      Cov		      "0.001*ones(3,1)"
+      Ts		      "0.025"
+      seed		      "[1 2 3]"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant"
+      Position		      [30, 185, 60, 215]
+      Value		      "[6 4 2]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Discrete\nTransfer Fcn\n(with initial outputs)"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [255, 242, 315, 278]
+      SourceBlock	      "simulink_extras/Additional\nDiscrete/Discrete\n"
+"Transfer Fcn\n(with initial outputs)"
+      SourceType	      "Discrete Transfer Function with Initial Outputs"
+      N			      "[1 1 1 1]"
+      D			      "[4 0 0 0]"
+      U0		      "6"
+      Y0		      "6"
+      TS		      "0.025"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Discrete\nZero-Pole\n(with initial outputs)"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [255, 392, 315, 428]
+      SourceBlock	      "simulink_extras/Additional\nDiscrete/Discrete\n"
+"Zero-Pole\n(with initial outputs)"
+      SourceType	      "Discrete Zero-Pole with Initial Outputs"
+      Z			      "[-1 sqrt(-1) -sqrt(-1)]"
+      P			      "[0 0 0]"
+      K			      "1/4"
+      U0		      "6"
+      Y0		      "6"
+      TS		      "0.025"
+    }
+    Block {
+      BlockType		      DiscreteFilter
+      Name		      "Discrete Filter"
+      Position		      [255, 127, 315, 163]
+      Numerator		      "[1 1 1 1]"
+      Denominator	      "4"
+      SampleTime	      "0.025"
+    }
+    Block {
+      BlockType		      DiscreteStateSpace
+      Name		      "Discrete SS"
+      Position		      [255, 546, 310, 584]
+      A			      "diag(ones(1,3-1),1)"
+      B			      "[0;0;1]"
+      C			      "[1 1 1]/4"
+      D			      "1/4"
+      X0		      "[6;6;6]"
+      SampleTime	      "0.025"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "MDSP"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [255, 76, 315, 114]
+      SourceBlock	      "Dequiv/MDSP"
+      SourceType	      "Generic Multichannel Digital Filter (DSP Conven"
+"tion)"
+      ni		      "3"
+      num		      "[1 1 1 1]"
+      den		      "4"
+      u0		      "[6 4 2]'"
+      T			      "0.025"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "MSS"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [255, 487, 310, 523]
+      SourceBlock	      "Dequiv/MSS"
+      SourceType	      "Multichannel Discrete State Space"
+      n			      "3"
+      a			      "diag(ones(1,3-1),1)"
+      b			      "[0;0;1]"
+      c			      "[1 1 1]/4"
+      d			      "1/4"
+      u0		      "[6 4 2]'"
+      T			      "0.025"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "MTF"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [255, 182, 310, 218]
+      SourceBlock	      "Dequiv/MTF"
+      SourceType	      "Generic Multichannel Transfer Function"
+      ni		      "3"
+      num		      "[1 1 1 1]"
+      den		      "[4 0 0 0]"
+      u0		      "[6 4 2]'"
+      T			      "0.025"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "MZP"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [255, 332, 310, 368]
+      SourceBlock	      "Dequiv/MZP"
+      SourceType	      "Generic Multichannel Zero-Pole"
+      ni		      "3"
+      Z			      "[-1 sqrt(-1) -sqrt(-1)]"
+      P			      "[0 0 0]"
+      K			      "1/4"
+      u0		      "[6 4 2]'"
+      T			      "0.025"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "Scope10"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [340, 394, 370, 426]
+      Floating		      off
+      Location		      [960, 283, 1284, 522]
+      Open		      on
+      NumInputPorts	      "1"
+      TickLabels	      "OneTimeTick"
+      ZoomMode		      "on"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      Grid		      "on"
+      TimeRange		      "10"
+      YMin		      "-2"
+      YMax		      "10"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      DataFormat	      "StructureWithTime"
+      LimitMaxRows	      on
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "Scope11"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [340, 24, 370, 56]
+      Floating		      off
+      Location		      [994, 623, 1318, 862]
+      Open		      off
+      NumInputPorts	      "1"
+      TickLabels	      "OneTimeTick"
+      ZoomMode		      "on"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      Grid		      "on"
+      TimeRange		      "10"
+      YMin		      "-1"
+      YMax		      "1"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      DataFormat	      "StructureWithTime"
+      LimitMaxRows	      on
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "Scope12"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [340, 489, 370, 521]
+      Floating		      off
+      Location		      [626, 59, 950, 299]
+      Open		      on
+      NumInputPorts	      "1"
+      TickLabels	      "OneTimeTick"
+      ZoomMode		      "on"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      Grid		      "on"
+      TimeRange		      "10"
+      YMin		      "-2"
+      YMax		      "10"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      DataFormat	      "StructureWithTime"
+      LimitMaxRows	      on
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "Scope13"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [340, 549, 370, 581]
+      Floating		      off
+      Location		      [627, 283, 951, 522]
+      Open		      on
+      NumInputPorts	      "1"
+      TickLabels	      "OneTimeTick"
+      ZoomMode		      "on"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      Grid		      "on"
+      TimeRange		      "10"
+      YMin		      "-2"
+      YMax		      "10"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      DataFormat	      "StructureWithTime"
+      LimitMaxRows	      on
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "Scope5"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [340, 79, 370, 111]
+      Floating		      off
+      Location		      [958, 61, 1282, 301]
+      Open		      on
+      NumInputPorts	      "1"
+      TickLabels	      "OneTimeTick"
+      ZoomMode		      "on"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      Grid		      "on"
+      TimeRange		      "10"
+      YMin		      "-2"
+      YMax		      "10"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      DataFormat	      "StructureWithTime"
+      LimitMaxRows	      on
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "Scope6"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [340, 129, 370, 161]
+      Floating		      off
+      Location		      [961, 283, 1285, 522]
+      Open		      on
+      NumInputPorts	      "1"
+      TickLabels	      "OneTimeTick"
+      ZoomMode		      "on"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      Grid		      "on"
+      TimeRange		      "10"
+      YMin		      "-2"
+      YMax		      "10"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      DataFormat	      "StructureWithTime"
+      LimitMaxRows	      on
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "Scope7"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [340, 184, 370, 216]
+      Floating		      off
+      Location		      [626, 58, 950, 299]
+      Open		      on
+      NumInputPorts	      "1"
+      TickLabels	      "OneTimeTick"
+      ZoomMode		      "on"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      Grid		      "on"
+      TimeRange		      "10"
+      YMin		      "-2"
+      YMax		      "10"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      DataFormat	      "StructureWithTime"
+      LimitMaxRows	      on
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "Scope8"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [340, 244, 370, 276]
+      Floating		      off
+      Location		      [627, 283, 951, 522]
+      Open		      on
+      NumInputPorts	      "1"
+      TickLabels	      "OneTimeTick"
+      ZoomMode		      "on"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      Grid		      "on"
+      TimeRange		      "10"
+      YMin		      "-2"
+      YMax		      "10"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      DataFormat	      "StructureWithTime"
+      LimitMaxRows	      on
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "Scope9"
+      Ports		      [1, 0, 0, 0, 0]
+      Position		      [340, 334, 370, 366]
+      Floating		      off
+      Location		      [958, 61, 1282, 301]
+      Open		      on
+      NumInputPorts	      "1"
+      TickLabels	      "OneTimeTick"
+      ZoomMode		      "on"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      Grid		      "on"
+      TimeRange		      "10"
+      YMin		      "-2"
+      YMax		      "10"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      DataFormat	      "StructureWithTime"
+      LimitMaxRows	      on
+      MaxRows		      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Selector
+      Name		      "Selector"
+      Position		      [205, 127, 235, 163]
+      Elements		      "1"
+      InputPortWidth	      "3"
+    }
+    Block {
+      BlockType		      Selector
+      Name		      "Selector1"
+      Position		      [205, 242, 235, 278]
+      Elements		      "1"
+      InputPortWidth	      "3"
+    }
+    Block {
+      BlockType		      Selector
+      Name		      "Selector2"
+      Position		      [205, 392, 235, 428]
+      Elements		      "1"
+      InputPortWidth	      "3"
+    }
+    Block {
+      BlockType		      Selector
+      Name		      "Selector3"
+      Position		      [205, 547, 235, 583]
+      Elements		      "1"
+      InputPortWidth	      "3"
+    }
+    Block {
+      BlockType		      Sin
+      Name		      "Sine Wave2"
+      Position		      [30, 25, 60, 55]
+      Amplitude		      "1"
+      Frequency		      "1.5"
+      Phase		      "0"
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum"
+      Ports		      [3, 1, 0, 0, 0]
+      Position		      [130, 190, 150, 210]
+      ShowName		      off
+      IconShape		      "round"
+      Inputs		      "+++"
+      SaturateOnIntegerOverflow	on
+    }
+    Line {
+      SrcBlock		      "Sum"
+      SrcPort		      1
+      Points		      [25, 0]
+      Branch {
+	DstBlock		"MTF"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, 60]
+	Branch {
+	  DstBlock		  "Selector1"
+	  DstPort		  1
+	}
+	Branch {
+	  Points		  [0, 90]
+	  Branch {
+	    DstBlock		    "MZP"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 60]
+	    Branch {
+	      DstBlock		      "Selector2"
+	      DstPort		      1
+	    }
+	    Branch {
+	      Points		      [0, 95]
+	      Branch {
+		DstBlock		"MSS"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, 60]
+		DstBlock		"Selector3"
+		DstPort			1
+	      }
+	    }
+	  }
+	}
+      }
+      Branch {
+	Points			[0, -55]
+	Branch {
+	  Points		  [0, -50]
+	  DstBlock		  "MDSP"
+	  DstPort		  1
+	}
+	Branch {
+	  DstBlock		  "Selector"
+	  DstPort		  1
+	}
+      }
+    }
+    Line {
+      SrcBlock		      "Band-Limited\nWhite Noise"
+      SrcPort		      1
+      Points		      [75, 0]
+      DstBlock		      "Sum"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "Constant"
+      SrcPort		      1
+      DstBlock		      "Sum"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "MDSP"
+      SrcPort		      1
+      DstBlock		      "Scope5"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Sine Wave2"
+      SrcPort		      1
+      Points		      [75, 0]
+      Branch {
+	DstBlock		"Sum"
+	DstPort			1
+      }
+      Branch {
+	DstBlock		"Scope11"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "Discrete Filter"
+      SrcPort		      1
+      DstBlock		      "Scope6"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Selector"
+      SrcPort		      1
+      DstBlock		      "Discrete Filter"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "MTF"
+      SrcPort		      1
+      DstBlock		      "Scope7"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Selector1"
+      SrcPort		      1
+      DstBlock		      "Discrete\nTransfer Fcn\n(with initial outputs)"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Discrete\nTransfer Fcn\n(with initial outputs)"
+      SrcPort		      1
+      DstBlock		      "Scope8"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "MSS"
+      SrcPort		      1
+      DstBlock		      "Scope12"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Selector3"
+      SrcPort		      1
+      DstBlock		      "Discrete SS"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Discrete SS"
+      SrcPort		      1
+      DstBlock		      "Scope13"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Discrete\nZero-Pole\n(with initial outputs)"
+      SrcPort		      1
+      DstBlock		      "Scope10"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Selector2"
+      SrcPort		      1
+      DstBlock		      "Discrete\nZero-Pole\n(with initial outputs)"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "MZP"
+      SrcPort		      1
+      DstBlock		      "Scope9"
+      DstPort		      1
+    }
+  }
+}
