@@ -1,4 +1,4 @@
-# Discrete-Time-Equivalents
+# discrete-time-equivalents
 Discrete-time equivalents of continuous time filters (Apr-2002)
 
 This Simulink&reg library contains several (multichannel) discrete equivalents
