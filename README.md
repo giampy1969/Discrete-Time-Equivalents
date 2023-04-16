@@ -1,6 +1,8 @@
 # Discrete-Time-Equivalents
 Discrete-time equivalents of continuous time filters (Apr-2002)
 
+[![View Dequiv on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/1107-dequiv)
+
 This Simulink&reg library contains several (multichannel) discrete equivalents
 of simple continuous time filters, in particular:
 
